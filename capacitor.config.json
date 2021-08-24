@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "seek",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
