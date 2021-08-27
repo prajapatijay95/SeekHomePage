@@ -1,27 +1,129 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.content {
+  .tabs {
+    ion-col {
+      background-color: #eeeeee;
+      color: #1c1c1c;
+      text-align: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      cursor: pointer;
+    }
+    ion-col.active {
+      background-color: #0d3880;
+      color: #ffffff;
+    }
+  }
+  form {
+    background-color: #0d3880;
+    ion-input.ng-valid {
+      border-bottom: none;
+    }
+    .item-interactive.ion-valid,
+    .item-interactive.ion-invalid {
+      --highlight-background: transparent;
+    }
+  }
+  .column-no-padding-b {
+    padding-bottom: 0;
+  }
+  .title {
+    --color: #ffffff;
+    height: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .error {
+    color: #ed576b;
+  }
+  .classification-list {
+    max-height: 50vh;
+    overflow: auto;
+    position: absolute;
+    width: 97%;
+    ion-item {
+      --border-width: 0 0 0 0;
+    }
+  }
+  .ripple-parent {
+    position: relative;
+    overflow: hidden;
+  }
+  .seek-button {
+    --background: #e60278;
+    --color: #ffffff;
+  }
+  .block-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #1c1c1c;
+    opacity: 0.7;
+    z-index: 9;
+  }
+  .z-index-10 {
+    z-index: 10;
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.done-text {
+  opacity: 0;
+  color: #2765cf;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.done-text.active {
+  opacity: 1;
+  transition: opacity 0.25s ease 30ms;
+  color: #2765cf;
 }
 
-#container a {
-  text-decoration: none;
+.done-text.inactive {
+  opacity: 0;
+  transition: opacity 0.25s ease 30ms;
+  color: #2765cf;
+}
+
+.arrow-icon {
+  height: 16px;
+  width: 16px;
+}
+
+.arrow-icon.active {
+  -webkit-transform: rotate(180deg); /* Safari & Chrome */
+  -moz-transform: rotate(180deg); /* Firefox */
+  -ms-transform: rotate(180deg); /* Internet Explorer */
+  -o-transform: rotate(180deg); /* Opera */
+  transform: rotate(180deg); /* W3C */
+  -webkit-animation: rotate-down 0.5s; /* Safari & Chrome */
+  -moz-animation: rotate-down 0.5s; /* Firefox */
+  -ms-animation: rotate-down 0.5s; /* Internet Explorer */
+  -o-animation: rotate-down 0.5s; /* Opera */
+  animation: rotate-down 0.5s; /* W3C */
+}
+
+@keyframes rotate-down {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
+.arrow-icon.inactive {
+  -webkit-animation: rotate-up 0.5s; /* Safari & Chrome */
+  -moz-animation: rotate-up 0.5s; /* Firefox */
+  -ms-animation: rotate-up 0.5s; /* Internet Explorer */
+  -o-animation: rotate-up 0.5s; /* Opera */
+  animation: rotate-up 0.5s; /* W3C */
+}
+
+@keyframes rotate-up {
+  0% {
+    transform: rotate(-180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

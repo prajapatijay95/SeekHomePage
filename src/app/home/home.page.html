@@ -1,20 +1,134 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content [fullscreen]="true" class="content">
+  <ion-grid class="tabs ion-no-padding ion-hide-sm-down">
+    <ion-row>
+      <ion-col class="active">Job Search</ion-col>
+      <ion-col>Profile</ion-col>
+      <ion-col>Career Advice</ion-col>
+      <ion-col>Company Reviews</ion-col>
+    </ion-row>
+  </ion-grid>
+  <form
+    [formGroup]="seekForm"
+    class="ion-text-left"
+    (ngSubmit)="onSubmit()"
+    novalidate
+  >
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="7">
+          <ion-row>
+            <ion-col size="12" size-md="12" class="column-no-padding-b">
+              <ion-title size="12" size="small" class="title">What</ion-title>
+            </ion-col>
+            <ion-col size="12" size-md="6">
+              <ion-item lines="full">
+                <ion-input
+                  clearInput
+                  formControlName="keyword"
+                  placeholder="Enter keywords"
+                  type="text"
+                ></ion-input>
+              </ion-item>
+              <span
+                class="error ion-padding"
+                *ngIf="submitted && (errorCtr.keyword.errors?.required || errorCtr.keyword.errors?.pattern)"
+              >
+                Keyword is required.
+              </span>
+              <span
+                class="error ion-padding"
+                *ngIf="submitted && errorCtr.keyword.errors?.minlength"
+              >
+                Min 1 chars long.
+              </span>
+            </ion-col>
+            <ion-col size="12" size-md="6">
+              <ion-item
+                lines="full"
+                class="z-index-10"
+                (click)="toggleClassifications($event)"
+              >
+                <ion-input
+                  readonly
+                  formControlName="classification"
+                  placeholder="Enter Classification"
+                  type="text"
+                ></ion-input>
+                <ion-text
+                  class="done-text"
+                  [ngClass]="{ 'active': showClassifications, 'inactive': showClassifications === false }"
+                  >Done</ion-text
+                >
+                <ion-icon
+                  slot="end"
+                  class="arrow-icon"
+                  [ngClass]="{ 'active': showClassifications, 'inactive': showClassifications === false }"
+                  src="/assets/icon/arrow.svg"
+                ></ion-icon>
+              </ion-item>
+              <ion-list
+                class="classification-list z-index-10"
+                *ngIf="showClassifications"
+              >
+                <ion-item lines="full" *ngFor="let item of classificationList">
+                  <ion-checkbox
+                    slot="start"
+                    (ionChange)="checkEvent($event, item)"
+                  ></ion-checkbox>
+                  <ion-text> {{item.name}} </ion-text>
+                  <ion-text slot="end"> {{item.count | number}} </ion-text>
+                </ion-item>
+              </ion-list>
+              <span
+                class="error ion-padding"
+                *ngIf="submitted && errorCtr.classification.errors?.required"
+              >
+                Classification is required.
+              </span>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="12" size-md="5">
+          <ion-row>
+            <ion-col size="12" size-md="12" class="column-no-padding-b">
+              <ion-title size="12" size="small" class="title">
+                Where
+              </ion-title>
+            </ion-col>
+            <ion-col size="12" size-md="8">
+              <ion-item lines="full">
+                <ion-input
+                  clearInput
+                  formControlName="where"
+                  placeholder="Enter suburb, city, or region"
+                  type="text"
+                ></ion-input>
+              </ion-item>
+              <span
+                class="error ion-padding"
+                *ngIf="submitted && errorCtr.where.errors?.required"
+              >
+                Suburb, city, or region is required.
+              </span>
+            </ion-col>
+            <ion-col size="12" size-md="4">
+              <ion-button
+                type="submit"
+                expand="block"
+                class="ion-activatable ripple-parent seek-button"
+              >
+                SEEK
+                <ion-ripple-effect></ion-ripple-effect>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <app-search-results
+    *ngIf="showResults"
+    (after-if)="scrollTo($event)"
+  ></app-search-results>
+  <div class="block-view" *ngIf="showClassifications"></div>
 </ion-content>
